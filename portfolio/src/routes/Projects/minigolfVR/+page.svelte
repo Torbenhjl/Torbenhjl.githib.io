@@ -8,7 +8,7 @@
   <img src={minigolf} alt="VR Fire Escape Game" class="w-full rounded-xl shadow-md" />
 
   <p class="text-gray-700">
-    This is where you describe your VR fire escape game, tech stack, goals, what you learned, etc.
+   DING DANG DONG TODO
   </p>
    <a href="/" class="border-2 border-blue-500 hover:bg-blue-500 hover:text-white transition-colors px-4 py-2 rounded-xl mt-10 inline-block">
     Go back
