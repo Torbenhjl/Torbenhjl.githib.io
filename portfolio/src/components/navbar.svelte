@@ -29,8 +29,8 @@
      <nav class="flex justify-between items-center px-8 py-4 text-xl">
   <ul class="flex space-x-8  font-medium">
   <li><a href="#about" class="relative text-gray-700 transition-all duration-300 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-gray-400 hover:text-gray-500 hover:after:w-full">About</a></li>
-  <li><a href="#experience" class="relative text-gray-700 transition-all duration-300 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-gray-400 hover:text-gray-500 hover:after:w-full">Experience</a></li>
-  <li><a href="#projects" class="relative text-gray-700 transition-all duration-300 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-gray-400 hover:text-gray-500 hover:after:w-full">Projects</a></li>
+  <li><a href="/Experience" class="relative text-gray-700 transition-all duration-300 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-gray-400 hover:text-gray-500 hover:after:w-full">Experience</a></li>
+  <li><a href="/Projects/ProjectView" class="relative text-gray-700 transition-all duration-300 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-gray-400 hover:text-gray-500 hover:after:w-full">Projects</a></li>
   <li><a href="#contact" class="relative text-gray-700 transition-all duration-300 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-gray-400 hover:text-gray-500 hover:after:w-full">Contact</a></li>
 </ul>
 
