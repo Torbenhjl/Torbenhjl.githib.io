@@ -7,3 +7,99 @@
     "Segoe UI Symbol", sans-serif;
 }
 
+body {
+  font-family: var(--font-sans);
+  background-color: #ffffff;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.75rem;
+  border-radius: 999px;
+  font-weight: 600;
+  border: 2px solid transparent;
+  transition: all 200ms ease;
+}
+
+.cta-primary {
+  background-color: #111827;
+  color: #fff;
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.2);
+}
+
+.cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.25);
+}
+
+.cta-secondary {
+  border-color: #d1d5db;
+  color: #111827;
+  background-color: #fff;
+}
+
+.cta-secondary:hover {
+  border-color: #111827;
+}
+
+.cta-ghost {
+  border-color: #d1d5db;
+  color: #111827;
+  background-color: transparent;
+  padding-inline: 1.5rem;
+}
+
+.cta-ghost:hover {
+  border-color: #111827;
+}
+
+.social-pill {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid #d1d5db;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #0f172a;
+  transition: all 200ms ease;
+}
+
+.social-pill:hover {
+  border-color: #0f172a;
+  transform: translateY(-2px);
+}
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  font-weight: 500;
+  color: #374151;
+  transition: all 150ms ease;
+}
+
+.card-link:hover {
+  border-color: #111827;
+  color: #111827;
+}
+
+.card-link--dark {
+  border-color: #111827;
+  color: #111827;
+}
+
+.card-link--dark:hover {
+  background-color: #111827;
+  color: #fff;
+}
