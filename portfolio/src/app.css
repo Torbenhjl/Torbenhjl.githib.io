@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+/* Set Poppins as the default sans font without @theme */
+:root {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", sans-serif;
+}
+
