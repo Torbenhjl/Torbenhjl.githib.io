@@ -2,7 +2,8 @@
   export let title: string;
   export let image: string;
   export let link: string;
-  export let github: string | undefined = undefined;
+  export let github: string | null = null;             // URL or null
+  export let onGithubClick: (() => void) | null = null; // callback from parent
 </script>
 
 <article
@@ -13,14 +14,31 @@
   </div>
 
   <div class="space-y-3">
-    
     <h2 class="text-2xl font-semibold text-gray-900">{title}</h2>
   </div>
 
-  <div class="flex flex-wrap items-center justify-center gap-4">  
+  <div class="flex flex-wrap items-center justify-center gap-4">
     {#if github}
-      <a href={github} target="_blank" rel="noreferrer" class="card-link">Github</a>
+      <!-- Normal repo link -->
+      <a
+        href={github}
+        target="_blank"
+        rel="noreferrer"
+        class="card-link"
+      >
+        Github
+      </a>
+    {:else if onGithubClick}
+      <!-- No repo: show button that triggers snackbar -->
+      <button
+        type="button"
+        class="card-link cursor-pointer"
+        on:click={onGithubClick}
+      >
+        Github
+      </button>
     {/if}
+
     {#if link}
       <a href={link} class="card-link card-link--dark">Details</a>
     {/if}

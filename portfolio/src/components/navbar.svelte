@@ -3,24 +3,26 @@
 
   let open = false;
 
-  // close menu when routing
-  $: if ($page.url.pathname) open = false;
+  const links = [
+    { href: '/', label: 'Home', type: 'path' },
+    { href: '/Experience', label: 'Experience', type: 'path' },
+    { href: '/Projects/projectView', label: 'Projects', type: 'path' },
+    { href: '/contact', label: 'Contact', type: 'path' } 
+  ];
 
-  // update active link
+  // reactive derived values
   $: pathname = $page.url.pathname;
 
-  const isActive = (href: string) =>
-    pathname === href
-      ? 'text-blue-600 after:w-full after:bg-blue-600'
-      : 'text-gray-700';
+  const activeClasses = 'text-blue-600 after:w-full after:bg-blue-600';
+  const inactiveClasses = 'text-gray-700';
 
-  const links = [
-    { href: '/', label: 'Home' },
-    { href: '/experience', label: 'Experience' },
-    { href: '/Projects/projectView', label: 'Projects' },
-    { href: '#contact', label: 'Contact' }
-  ];
+ $: isActive = (link: (typeof links)[number]) => {
+  
+    return pathname === link.href ? activeClasses : inactiveClasses;
+  };
+
 </script>
+
 
 <nav class="sticky top-0 z-40 border-b bg-white/90 backdrop-blur">
   <div class="mx-auto max-w-6xl px-4">
@@ -30,12 +32,13 @@
         <span>Torben's Portfolio</span>
       </a>
 
+      <!-- Desktop -->
       <div class="hidden items-center gap-8 text-sm font-semibold md:flex">
         {#each links as link}
           <a
             href={link.href}
             class={`relative transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-gray-400 after:transition-all hover:text-gray-500 hover:after:w-full ${isActive(
-              link.href
+              link
             )}`}
           >
             {link.label}
@@ -43,6 +46,7 @@
         {/each}
       </div>
 
+      <!-- Mobile menu button -->
       <button
         class="inline-flex items-center justify-center rounded-full border border-gray-300 p-2 text-gray-700 md:hidden"
         aria-label="Toggle navigation"
@@ -59,12 +63,13 @@
       </button>
     </div>
 
+    <!-- Mobile menu -->
     <div class={`md:hidden ${open ? 'block' : 'hidden'}`}>
       <div class="space-y-1 border-t border-gray-100 py-3 text-sm font-semibold">
         {#each links as link}
           <a
             href={link.href}
-            class={`block rounded-full px-4 py-2 transition-colors ${isActive(link.href)} hover:bg-gray-100`}
+            class={`block rounded-full px-4 py-2 transition-colors ${isActive(link)} hover:bg-gray-100`}
           >
             {link.label}
           </a>

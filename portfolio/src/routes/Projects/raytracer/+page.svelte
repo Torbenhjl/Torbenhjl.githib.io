@@ -1,60 +1,61 @@
 <script lang="ts">
-  import minigolf from '$lib/images/MinigolfVR.png';
+  import raytracerShot from '$lib/images/raystracer.png';
 
   const project = {
-    title: 'Minigolf VR',
-    tagline: 'Playful physics playground with custom tracks and multiplayer ghost races.',
+    title: 'GPU Ray Tracer',
+    tagline: 'Porting "Ray Tracing in One Weekend" to a realtime HLSL compute shader.',
     summary:
-      'A Unity VR prototype that blends calm environments with trickshot challenges. Built to explore tactile interactions, haptics, and networked scoreboards.',
-    stack: ['Unity', 'C#' ],
-    duration: '10 weeks',
-    role: 'Gameplay programmer',
+      "I translated Peter Shirley's CPU implementation into an HLSL compute shader that runs inside Unity. The build focuses on the fundamentals: sampling BRDFs, bouncing rays, denoising, and exposing everything through lightweight editor tooling.",
+    stack: ['Unity', 'HLSL', 'Compute Shaders', 'C#'],
+    duration: '3 weeks of evenings',
+    role: 'Graphics programmer',
     team: 'Solo project',
     contribution:
-      'Implemented the physics-driven putter, designed three themed valleys, and added an asynchronous ghost race mode.'
+      'Recreated the complete renderer on the GPU, built buffer packing utilities in C#, and exposed live controls for bounces, samples per pixel, and depth of field to study how each lever affects convergence.'
   };
 
   const highlights = [
     {
       label: 'Goal',
-      text: 'Make VR feel cozy—inviting enough for casual players yet deep for speedrunners chasing trickshots.'
+      text: 'Internalize the math and data flow behind ray tracing by rewriting it from scratch instead of relying on Unity lighting presets.'
     },
     {
-      label: 'Experiment',
-      text: 'Used custom shaders for day/night moods and reactive foliage that wobbles when the ball passes.'
+      label: 'Porting win',
+      text: 'Converted the recursive C++ scenes into iterative GPU-friendly kernels, replacing pointers with packed float4 buffers and struct-of-arrays layouts.'
     },
     {
-      label: 'Results',
-      text: 'Friends kept replaying holes to beat ghost times, validating the asynchronous multiplayer concept.'
+      label: 'Result',
+      text: '1080p frames with metals, dielectrics, motion blur, and depth of field converge in ~2 seconds at 128 spp on an RTX 3060 laptop GPU.'
     }
   ];
 
   const process = [
     {
-      title: 'Feel first',
-      body: 'Started with putter physics, haptic pulses, and spatial audio before worrying about art polish.'
+      title: 'C++ to HLSL',
+      body: 'Rebuilt sphere, material, and camera structs as raw buffers, rewired the RNG, and emulated recursion with a manual stack inside the compute shader.'
     },
     {
-      title: 'World building',
-      body: 'Kitbashed stylized assets, added animated waterfalls, and sculpted terrain splines for smooth curves.'
+      title: 'Material studies',
+      body: 'Implemented lambertian, metal, dielectric, and emissive BRDFs plus helper visualizations for normals, ray depth, and albedo to debug sampling.'
     },
     {
-      title: 'Playtests',
-      body: 'Hosted remote playtests, captured telemetry for shot counts, and iterated on par balancing.'
+      title: 'Unity integration',
+      body: 'C# scripts stream scene data to the GPU, accumulate frames over time, and provide pause/save buttons for exporting stills without blocking the editor.'
     }
   ];
 
   const galleryImages = [
-    { alt: 'Luminous canyon course placeholder', src: minigolf },
-    { alt: 'Night mode course placeholder', src: minigolf },
-    { alt: 'Ghost race HUD placeholder', src: minigolf }
+    { alt: 'First converged diffuse render from the compute shader', src: raytracerShot },
+    { alt: 'Metals, dielectrics, and emissive spheres with depth of field', src: raytracerShot },
+    { alt: 'Debug view showing surface normals and focus plane', src: raytracerShot }
   ];
 </script>
 
 <main class="min-h-screen bg-[#edf2ff] text-slate-900">
-  <section class="bg-gradient-to-br from-indigo-900 via-blue-800 to-slate-900 text-white">
+  <section class="bg-gradient-to-br from-slate-950 via-blue-900 to-slate-800 text-white">
     <div class="max-w-6xl mx-auto px-6 py-16 lg:py-24 flex flex-col gap-12 lg:flex-row lg:items-center">
       <div class="space-y-6 max-w-xl">
+        
         <h1 class="text-4xl font-semibold lg:text-5xl">{project.title}</h1>
         <p class="text-xl text-white/85">{project.tagline}</p>
         <p class="text-white/80 leading-relaxed">{project.summary}</p>
@@ -66,7 +67,14 @@
         </div>
 
         <div class="flex flex-wrap gap-4">
-          <a href="https://example.com/minigolf" target="_blank" class="cta cta-primary">Watch demo</a>
+          <a
+            href="https://raytracing.github.io/books/RayTracingInOneWeekend.html"
+            target="_blank"
+            rel="noreferrer"
+            class="cta cta-primary"
+          >
+            Read the book
+          </a>
           <a href="/Projects/projectView" class="cta cta-secondary">Back to projects</a>
         </div>
 
@@ -90,7 +98,7 @@
         <div class="absolute -inset-6 rounded-[32px] bg-white/10 blur-3xl" aria-hidden="true"></div>
         <div class="relative overflow-hidden rounded-[32px] border border-white/15 bg-gradient-to-b from-slate-800 to-slate-900 shadow-[0_30px_80px_rgba(15,23,42,0.55)]">
           <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,#ffffff22,transparent_60%)]" aria-hidden="true"></div>
-          <img src={minigolf} alt="Minigolf VR environment" class="w-full object-cover" />
+          <img src={raytracerShot} alt="Ray traced spheres rendered in HLSL" class="w-full object-cover" />
         </div>
       </div>
     </div>
@@ -116,17 +124,17 @@
       <article class="rounded-3xl bg-white p-8 shadow-[0_20px_60px_rgba(79,70,229,0.2)]">
         <h3 class="text-xl font-semibold text-gray-900">Experience beats</h3>
         <ul class="mt-4 space-y-4 text-gray-600">
-          <li>- Reading the slope via controller haptics before you swing.</li>
-          <li>- Unlocking “zen gardens” after streaks of par or better.</li>
-          <li>- Challenging ghost recordings from friends to learn new trick lines.</li>
+          <li>- Progressive accumulation slider to study noise vs. performance.</li>
+          <li>- Camera controls for aperture, focus distance, and shutter time to test DOF + motion blur.</li>
+          <li>- Debug overlays that display normals, ray depth, or albedo to quickly find sampling bugs.</li>
         </ul>
       </article>
 
       <article class="rounded-3xl border border-gray-200 bg-white p-8">
-        <h3 class="text-xl font-semibold text-gray-900">Ghost race netcode</h3>
+        <h3 class="text-xl font-semibold text-gray-900">Compute shader pipeline</h3>
         <p class="mt-4 text-gray-600">
-          Photon records position + club velocity each stroke, compresses it, and replays it as a translucent ghost.
-          Players feel competitive pressure without requiring synchronous multiplayer.
+          Rays are launched in tiles to keep thread groups coherent. Each bounce samples the material, updates energy, and decides whether to terminate via
+          Russian roulette. The C# side streams scene buffers (spheres, materials, camera) every edit while async GPU readback saves converged frames.
         </p>
       </article>
     </div>
@@ -157,13 +165,13 @@
     <div class="rounded-[32px] bg-slate-900 text-white p-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
       <div>
         <p class="text-sm uppercase tracking-[0.4em] text-gray-400">Next</p>
-        <h2 class="text-3xl font-semibold">Open to collabs</h2>
+        <h2 class="text-3xl font-semibold">Continuing the series</h2>
         <p class="mt-3 text-gray-300">
-          Looking at seasonal events, course builder tools, and Steam demo prep. Reach out if you want to send golfers through your world.
+          I am currently diving into the sequels from the Ray Tracing in One Weekend series (BVHs, textures, quads). If you are exploring similar graphics experiments, let's chat.
         </p>
       </div>
       <div class="flex flex-col gap-3 md:items-end">
-        <a href="mailto:torben@example.com" class="cta cta-primary">Chat about VR</a>
+        <a href="/contact" class="cta cta-primary">Start a graphics convo</a>
         <a href="/Projects/ProjectView" class="cta cta-ghost text-white border-white/40">Browse more projects</a>
       </div>
     </div>
