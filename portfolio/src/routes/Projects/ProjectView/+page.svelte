@@ -4,19 +4,15 @@
   import HVLFire from '$lib/images/hvlfire.png';
   import MealPlanner from '$lib/images/mealplanner.png';
   import raytracer from '$lib/images/raystracer.png';
-
+  import { withBase } from '$lib/utils/paths';
   import Snackbar, { Actions, Label } from '@smui/snackbar';
   import IconButton from '@smui/icon-button';
-  import { base } from '$app/paths';
 
   let snackbarWithClose: Snackbar;
 
   const noGithubSnackbar = () => {
     snackbarWithClose.open();
   };
-
-  // helper to prepend the base path ('' in dev, '/Torbenhjl.githib.io' on GitHub Pages)
-  const withBase = (path: string) => `${base}${path}`;
 </script>
 
 <h1 class="font-sans text-5xl font-bold text-center mt-10">Some of my projects</h1>

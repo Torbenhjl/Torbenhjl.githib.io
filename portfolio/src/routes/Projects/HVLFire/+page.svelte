@@ -8,6 +8,7 @@
   import stairs from '$lib/images/stairs.png';
   import endscreen from '$lib/images/endscreen.png';
   import endstats from '$lib/images/endstats.png';
+  import { withBase } from '$lib/utils/paths';
 
   const project = {
     title: 'VR Fire Escape Game',
@@ -82,7 +83,7 @@
 
         <div class="flex flex-wrap gap-4">
           <a href="https://example.com/hvlfire" target="_blank" class="cta cta-primary">Launch demo</a>
-          <a href="/Projects/ProjectView" class="cta cta-secondary">Back to projects</a>
+          <a href={withBase('/Projects/ProjectView')} class="cta cta-secondary">Back to projects</a>
         </div>
 
         <dl class="grid grid-cols-2 gap-6 text-sm text-gray-200 [@media(min-width:520px)]:grid-cols-3">
@@ -192,7 +193,7 @@
         </p>
       </div>
       <div class="flex flex-col gap-3 md:items-end">
-        <a href="/Projects/ProjectView" class="cta cta-ghost !text-white border-white/40">Browse more projects</a>
+        <a href={withBase('/Projects/projectView')} class="cta cta-ghost !text-white border-white/40">Browse more projects</a>
       </div>
     </div>
   </section>

@@ -1,5 +1,6 @@
 <script lang="ts">
   import raytracerShot from '$lib/images/raystracer.png';
+  import { withBase } from '$lib/utils/paths';
 
   const project = {
     title: 'GPU Ray Tracer',
@@ -49,6 +50,9 @@
     { alt: 'Metals, dielectrics, and emissive spheres with depth of field', src: raytracerShot },
     { alt: 'Debug view showing surface normals and focus plane', src: raytracerShot }
   ];
+
+
+  const fullHref = (link: (typeof links)[number]) => `${base}${link.href}`;
 </script>
 
 <main class="min-h-screen bg-[#edf2ff] text-slate-900">
@@ -75,7 +79,7 @@
           >
             Read the book
           </a>
-          <a href="/Projects/ProjectView" class="cta cta-secondary">Back to projects</a>
+          <a href={withBase('/Projects/ProjectView')} class="cta cta-secondary">Back to projects</a>
         </div>
 
         <dl class="grid grid-cols-2 gap-6 text-sm text-white/75 [@media(min-width:520px)]:grid-cols-3">
@@ -171,8 +175,8 @@
         </p>
       </div>
       <div class="flex flex-col gap-3 md:items-end">
-        <a href="/contact" class="cta cta-primary">Start a graphics convo</a>
-        <a href="/Projects/ProjectView" class="cta cta-ghost text-white border-white/40">Browse more projects</a>
+        <a href={withBase('/contact')} class="cta cta-primary">Start a graphics convo</a>
+        <a href={withBase('/Projects/projectView')} class="cta cta-ghost text-white border-white/40">Browse more projects</a>
       </div>
     </div>
   </section>

@@ -1,5 +1,6 @@
 <script lang="ts">
   import minigolf from '$lib/images/MinigolfVR.png';
+  import { withBase } from '$lib/utils/paths';
 
   const project = {
     title: 'Minigolf VR',
@@ -67,7 +68,7 @@
 
         <div class="flex flex-wrap gap-4">
           <a href="https://example.com/minigolf" target="_blank" class="cta cta-primary">Watch demo</a>
-          <a href="/Projects/ProjectView" class="cta cta-secondary">Back to projects</a>
+          <a href={withBase('/Projects/ProjectView')} class="cta cta-secondary">Back to projects</a>
         </div>
 
         <dl class="grid grid-cols-2 gap-6 text-sm text-white/75 [@media(min-width:520px)]:grid-cols-3">
@@ -164,7 +165,7 @@
       </div>
       <div class="flex flex-col gap-3 md:items-end">
         <a href="mailto:torben@example.com" class="cta cta-primary">Chat about VR</a>
-        <a href="/Projects/ProjectView" class="cta cta-ghost text-white border-white/40">Browse more projects</a>
+        <a href={withBase('/Projects/projectView')} class="cta cta-ghost text-white border-white/40">Browse more projects</a>
       </div>
     </div>
   </section>

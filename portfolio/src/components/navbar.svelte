@@ -1,14 +1,19 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { base } from '$app/paths';
+  import { withBase } from '$lib/utils/paths';
+
+  type NavLink = {
+    path: string;
+    label: string;
+  };
 
   let open = false;
 
-  const links = [
-    { href: '/', label: 'Home', type: 'path' },
-    { href: '/Experience', label: 'Experience', type: 'path' },
-    { href: '/Projects/ProjectView', label: 'Projects', type: 'path' },
-    { href: '/contact', label: 'Contact', type: 'path' }
+  const links: NavLink[] = [
+    { path: '/', label: 'Home' },
+    { path: '/Experience', label: 'Experience' },
+    { path: '/Projects/ProjectView', label: 'Projects' },
+    { path: '/contact', label: 'Contact' }
   ];
 
   $: pathname = $page.url.pathname;
@@ -16,17 +21,16 @@
   const activeClasses = 'text-blue-600 after:w-full after:bg-blue-600';
   const inactiveClasses = 'text-gray-700';
 
-  // full href including base
-  const fullHref = (link: (typeof links)[number]) => `${base}${link.href}`;
+  const hrefFor = (link: NavLink) => withBase(link.path);
 
-  const isActive = (link: (typeof links)[number]) =>
-    pathname === fullHref(link) ? activeClasses : inactiveClasses;
+  const isActive = (link: NavLink) =>
+    pathname === hrefFor(link) ? activeClasses : inactiveClasses;
 </script>
 
 <nav class="sticky top-0 z-40 border-b bg-white/90 backdrop-blur">
   <div class="mx-auto max-w-6xl px-4">
     <div class="flex h-16 items-center justify-between">
-      <a href="{base}/" class="flex items-center gap-2 font-semibold text-xl">
+      <a href={withBase('/')} class="flex items-center gap-2 font-semibold text-xl">
         <span class="inline-block rounded bg-blue-600 px-2 py-1 text-sm text-white">TP</span>
         <span>Torben's Portfolio</span>
       </a>
@@ -35,7 +39,7 @@
       <div class="hidden items-center gap-8 text-sm font-semibold md:flex">
         {#each links as link}
           <a
-            href={fullHref(link)}
+            href={hrefFor(link)}
             class={`relative transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-gray-400 after:transition-all hover:text-gray-500 hover:after:w-full ${isActive(
               link
             )}`}
@@ -67,7 +71,7 @@
       <div class="space-y-1 border-t border-gray-100 py-3 text-sm font-semibold">
         {#each links as link}
           <a
-            href={fullHref(link)}
+            href={hrefFor(link)}
             class={`block rounded-full px-4 py-2 transition-colors ${isActive(link)} hover:bg-gray-100`}
           >
             {link.label}

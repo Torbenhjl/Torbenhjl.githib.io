@@ -1,9 +1,10 @@
 <script lang="ts">
   import mealplanner from '$lib/images/mealplanner.png';
-  import picture1 from '$lib/images/Picture1.png'
-  import picture2 from '$lib/images/Picture2.png'
-  import picture3 from '$lib/images/Picture3.png'
-  import picture4 from '$lib/images/Picture4.png'
+  import picture1 from '$lib/images/Picture1.png';
+  import picture2 from '$lib/images/Picture2.png';
+  import picture3 from '$lib/images/Picture3.png';
+  import picture4 from '$lib/images/Picture4.png';
+  import { withBase } from '$lib/utils/paths';
 
   const project = {
     title: 'Meal Planner App',
@@ -81,7 +82,7 @@
 
         <div class="flex flex-wrap gap-4">
           <a href="https://github.com/Torbenhjl/MealPlanner" target="_blank" class="cta cta-primary">View repo</a>
-          <a href="/Projects/ProjectView" class="cta cta-secondary">Back to projects</a>
+          <a href={withBase('/Projects/ProjectView')} class="cta cta-secondary">Back to projects</a>
         </div>
 
         
@@ -167,7 +168,7 @@
       </div>
       <div class="flex flex-col gap-3 md:items-end">
         <a href="mailto:torben@example.com" class="cta cta-primary">Request a walkthrough</a>
-        <a href="/Projects/projectView" class="cta cta-ghost text-white border-white/40">Browse more projects</a>
+        <a href={withBase('/Projects/projectView')} class="cta cta-ghost text-white border-white/40">Browse more projects</a>
       </div>
     </div>
   </section>

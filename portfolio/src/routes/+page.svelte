@@ -8,9 +8,9 @@
   import portrait from '$lib/images/profile.jpg';
   import FAM from '$lib/images/theFam.jpg';
   import CV from '$lib/assets/CV.pdf';
+  import { withBase } from '$lib/utils/paths';
   import Snackbar, { Actions, Label } from '@smui/snackbar';
   import IconButton from '@smui/icon-button';
-  import { base } from '$app/paths';
 
 let snackbarWithClose!: Snackbar;
 
@@ -24,7 +24,6 @@ const noGithubSnackbar = () => {
     status = status === 'OPEN' ? 'CLOSED' : 'OPEN';
   }
 
-const withBase = (path: string) => `${base}${path}`;
 </script>
 
 <main class="min-h-screen bg-white text-gray-900">
