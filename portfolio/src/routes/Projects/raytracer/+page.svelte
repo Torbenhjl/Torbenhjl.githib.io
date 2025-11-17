@@ -75,7 +75,7 @@
           >
             Read the book
           </a>
-          <a href="/Projects/projectView" class="cta cta-secondary">Back to projects</a>
+          <a href="/Projects/ProjectView" class="cta cta-secondary">Back to projects</a>
         </div>
 
         <dl class="grid grid-cols-2 gap-6 text-sm text-white/75 [@media(min-width:520px)]:grid-cols-3">

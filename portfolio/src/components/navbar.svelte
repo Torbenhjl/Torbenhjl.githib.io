@@ -7,7 +7,7 @@
   const links = [
     { href: '/', label: 'Home', type: 'path' },
     { href: '/Experience', label: 'Experience', type: 'path' },
-    { href: '/Projects/projectView', label: 'Projects', type: 'path' },
+    { href: '/Projects/ProjectView', label: 'Projects', type: 'path' },
     { href: '/contact', label: 'Contact', type: 'path' }
   ];
 
