@@ -10,7 +10,7 @@
   import CV from '$lib/assets/CV.pdf';
   import Snackbar, { Actions, Label } from '@smui/snackbar';
   import IconButton from '@smui/icon-button';
-
+  import { base } from '$app/paths';
 
 let snackbarWithClose!: Snackbar;
 
@@ -24,7 +24,7 @@ const noGithubSnackbar = () => {
     status = status === 'OPEN' ? 'CLOSED' : 'OPEN';
   }
 
-
+const withBase = (path: string) => `${base}${path}`;
 </script>
 
 <main class="min-h-screen bg-white text-gray-900">
@@ -41,7 +41,7 @@ const noGithubSnackbar = () => {
 
         <div class="mt-8 flex flex-wrap items-center justify-center gap-4 md:justify-start">
           <a download="CV.pdf" href={CV} class="cta cta-primary">Download CV</a>
-          <a href="/contact" class="cta cta-secondary">Contact Info</a>
+          <a href={withBase('/contact')} class="cta cta-secondary">Contact Info</a>
         </div>
 
         <div class="mt-8 flex flex-col gap-3 text-sm text-gray-500 md:flex-row md:items-center">
@@ -117,11 +117,34 @@ const noGithubSnackbar = () => {
 
       {#if status === 'OPEN'}
         <div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-          <Card title="VR Fire Escape Game" image={HVLFire} link="/Projects/HVLFire" onGithubClick={noGithubSnackbar} />
+          <Card
+  title="VR Fire Escape Game"
+  image={HVLFire}
+  link={withBase('/Projects/HVLFire')}
+  onGithubClick={noGithubSnackbar}
+/>
 
-          <Card title="Meal Planner App" image={MealPlanner} link="/Projects/MealPlanner" github="https://github.com/Torbenhjl/MealPlanner"/>
-          <Card title="Minigolf VR" image={minigolf} link="/Projects/minigolfVR" onGithubClick={noGithubSnackbar} />
-          <Card title="Raytracer" image={raytracer} link="/Projects/raytracer" github="https://github.com/Torbenhjl/lecture9UnityCodeStartRaytracer" />
+<Card
+  title="Meal Planner App"
+  image={MealPlanner}
+  link={withBase('/Projects/MealPlanner')}
+  github="https://github.com/Torbenhjl/MealPlanner"
+/>
+
+<Card
+  title="Minigolf VR"
+  image={minigolf}
+  link={withBase('/Projects/minigolfVR')}
+  onGithubClick={noGithubSnackbar}
+/>
+
+<Card
+  title="Raytracer"
+  image={raytracer}
+  link={withBase('/Projects/raytracer')}
+  github="https://github.com/Torbenhjl/lecture9UnityCodeStartRaytracer"
+/>
+
         </div>
       {:else}
         <div class="mt-12 rounded-3xl bg-white p-8 text-center shadow-[0_10px_50px_rgba(15,23,42,0.08)]">

@@ -7,6 +7,7 @@ import raytracer from '$lib/images/raystracer.png'
 
 import Snackbar, { Actions, Label } from '@smui/snackbar';
 import IconButton from '@smui/icon-button';
+import { base } from
 
 let snackbarWithClose: Snackbar;
 
