@@ -11,7 +11,7 @@
         },
         {
             category: 'Dev & Tools',
-            items: ['Git', 'Docker', 'Kubernetes', 'CI/CD', 'AWS']
+            items: ['Git', 'Docker', 'Kubernetes', 'CI/CD', 'AWS', 'Postman ']
         },
         {
             category: 'Languages',
@@ -54,6 +54,13 @@
             details: [
                 'Part time helping people with disabileties.'
             ]
+        },
+        {
+            role: 'Hackathon winner',
+            period: '17-19 september 2025',
+            details: [
+                'Won the b-prepared hackathon in Budapest in the VR category. Me and two teammates implemented sprinklers and alarm system in the VR fire escape game and showing if the player was successfull in avtivating the alarm or not in the end screen.'
+            ]
         }
     ];
 
@@ -67,7 +74,7 @@
 <main class="mx-auto max-w-4xl my-8 p-4" aria-label="Experience page">
     <header class="mb-4">
         <h1 class="text-2xl font-semibold text-slate-900 mb-1">Experience & Skills</h1>
-        <p class="text-sm text-slate-600">What I know — some quite well and some not so well</p>
+        <p class="text-sm text-slate-600">An overview of languages i know, tools i've used and work experience</p>
     </header>
 
     <section class="mt-6" aria-labelledby="skills-heading">

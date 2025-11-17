@@ -11,7 +11,7 @@
     role: 'Gameplay programmer',
     team: 'Solo project',
     contribution:
-      'Implemented the physics-driven putter, designed three themed valleys, and added an asynchronous ghost race mode.'
+      '9 hole VR minigolf game in a cozy mountain valley'
   };
 
   const highlights = [

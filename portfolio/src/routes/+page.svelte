@@ -125,8 +125,8 @@ const noGithubSnackbar = () => {
         </div>
       {:else}
         <div class="mt-12 rounded-3xl bg-white p-8 text-center shadow-[0_10px_50px_rgba(15,23,42,0.08)]">
-          <h3 class="text-2xl font-semibold text-gray-900">This is my gang</h3>
-          <p class="mt-3 text-gray-500">My beautiful family</p>
+          <h3 class="text-2xl font-semibold text-gray-900">My beautiful family</h3>
+         
           <img src={FAM} alt="Torben with family" class="mt-8 w-full max-w-xl mx-auto rounded-2xl shadow-md" />
         </div>
       {/if}

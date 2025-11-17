@@ -1,6 +1,13 @@
 <script lang="ts">
   import HVLFire from '$lib/images/hvlfire.png';
   import sprinkler from '$lib/images/sprinkler.png';
+  import hvl1f from '$lib/images/hvl1stfloor.png';
+  import hvlexit from '$lib/images/hvlexit.png';
+  import hvlcorridor from '$lib/images/hvlcorridor.png';
+  import smoke from '$lib/images/hvlsmoke.png';
+  import stairs from '$lib/images/stairs.png';
+  import endscreen from '$lib/images/endscreen.png';
+  import endstats from '$lib/images/endstats.png';
 
   const project = {
     title: 'VR Fire Escape Game',
@@ -46,9 +53,15 @@
   ];
 
   const galleryImages = [
-    { alt: 'VR Fire Escape Game interaction mock', src: HVLFire },
-    { alt: 'XR tutorial view placeholder', src: sprinkler },
-    { alt: 'Scenario branching map placeholder', src: HVLFire }
+    { alt: 'Heat indicator and visual impairment when moving close to fires', src: HVLFire },
+    { alt: 'sprinkler and alarm system', src: sprinkler },
+    { alt: 'first floor corridor', src: hvl1f },
+    { alt: '2nd floor corridor', src: hvlcorridor },
+    { alt: 'One of two possible exits', src: hvlexit },
+    { alt: 'Smoke', src: smoke },
+    { alt: 'One of two stairwells', src: stairs },
+    { alt: 'End scene upon successfull evacuation. PLayers can view advanced stats, restart, go to lobby and save stats to JSON', src: endscreen },
+    { alt: 'Detailed stats for evacuation', src: endstats },
   ];
 </script>
 

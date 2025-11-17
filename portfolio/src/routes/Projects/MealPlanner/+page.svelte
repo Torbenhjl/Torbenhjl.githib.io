@@ -1,5 +1,9 @@
 <script lang="ts">
   import mealplanner from '$lib/images/mealplanner.png';
+  import picture1 from '$lib/images/Picture1.png'
+  import picture2 from '$lib/images/Picture2.png'
+  import picture3 from '$lib/images/Picture3.png'
+  import picture4 from '$lib/images/Picture4.png'
 
   const project = {
     title: 'Meal Planner App',
@@ -45,10 +49,20 @@
   ];
 
   const galleryImages = [
-    { alt: 'Planner grid mock', src: mealplanner },
-    { alt: 'Recipe detail placeholder', src: mealplanner },
-    { alt: 'Grocery list placeholder', src: mealplanner }
+    { alt: 'List of created recipies', src: picture1 },
+    { alt: 'Recipe details', src: picture2 },
+    { alt: 'Interractive calender', src: picture4 }
   ];
+
+  let fullscreenImage: string | null = $state(null);
+
+  function openFullscreen(src: string) {
+    fullscreenImage = src;
+  }
+
+  function closeFullscreen() {
+    fullscreenImage = null;
+  }
 </script>
 
 <main class="min-h-screen bg-[#f5f5f7] text-gray-900">
@@ -118,9 +132,11 @@
       </article>
     </div>
 
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
     <div class="grid gap-6 md:grid-cols-3">
       {#each galleryImages as image}
-        <figure class="rounded-3xl overflow-hidden border border-gray-200 bg-gray-50 shadow-sm">
+        <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+        <figure class="rounded-3xl overflow-hidden border border-gray-200 bg-gray-50 shadow-sm cursor-pointer hover:shadow-lg transition-shadow" onclick={() => openFullscreen(image.src)}>
           <img src={image.src} alt={image.alt} class="h-56 w-full object-cover" />
           <figcaption class="px-4 py-3 text-sm text-gray-500">{image.alt}</figcaption>
         </figure>
@@ -151,8 +167,25 @@
       </div>
       <div class="flex flex-col gap-3 md:items-end">
         <a href="mailto:torben@example.com" class="cta cta-primary">Request a walkthrough</a>
-        <a href="/Projects/ProjectView" class="cta cta-ghost text-white border-white/40">Browse more projects</a>
+        <a href="/Projects/projectView" class="cta cta-ghost text-white border-white/40">Browse more projects</a>
       </div>
     </div>
   </section>
+
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
+  {#if fullscreenImage}
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onclick={closeFullscreen}>
+      <div class="relative max-w-4xl w-full" onclick={(e) => e.stopPropagation()}>
+        <img src={fullscreenImage} alt="Fullscreen" class="w-full rounded-lg" />
+        <!-- svelte-ignore a11y_consider_explicit_label -->
+        <button onclick={closeFullscreen} class="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-gray-200 transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  {/if}
 </main>
