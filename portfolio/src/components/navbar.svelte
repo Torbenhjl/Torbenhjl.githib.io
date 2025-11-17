@@ -23,7 +23,7 @@
 
   const hrefFor = (link: NavLink) => withBase(link.path);
 
-  const isActive = (link: NavLink) =>
+  $: isActive = (link: NavLink) =>
     pathname === hrefFor(link) ? activeClasses : inactiveClasses;
 </script>
 
