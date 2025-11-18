@@ -8,6 +8,9 @@
   import stairs from '$lib/images/stairs.png';
   import endscreen from '$lib/images/endscreen.png';
   import endstats from '$lib/images/endstats.png';
+  import sofaområde from '$lib/images/hvlsofaområde.png';
+
+
   import { withBase } from '$lib/utils/paths';
 
   const project = {
@@ -20,38 +23,24 @@
     role: 'Systems & UX',
     team: '2 MSc students + B-Prepared mentors',
     contribution:
-      "Co-created drills with researchers, led the interaction design, and implemented the adaptive fire spread system that reacts to each trainee's choices."
+      ""
   };
 
   const highlights = [
     {
       label: 'Goal',
-      text: 'Give the general public a low-stakes way to explore “what-if” fire scenarios so they feel calm during real emergencies.'
+      text: 'Give the general public a low-stakes way to experience fire scenarios so they feel calm during real emergencies, improving emergency preparedness'
     },
     {
       label: 'Impact',
-      text: 'Test participants completed drills 32% faster after two attempts and reported higher confidence scores.'
+      text: 'Evaluation of the project will be around march 2026. Hopefully gaining insights into needed fidelity for effective training'
     },
     {
       label: 'Challenges',
-      text: 'Balancing realism with comfort - too much smoke reduced visibility, while too little lowered urgency.'
+      text: 'How much and what type of fidelity matters for effective training simulations?'
     }
   ];
 
-  const process = [
-    {
-      title: 'Research & Mapping',
-      body: 'Shadowed facility managers, collected floor plans and charted critical decision points for each scenario.'
-    },
-    {
-      title: 'Prototype & Playtest',
-      body: 'Built rapid Unity prototypes to validate teleport mechanics, smoke effects and haptic cues with testers drawn from the B-Prepared community.'
-    },
-    {
-      title: 'Polish & Delivery',
-      body: 'Integrated narration, analytics and Firebase logging so researchers can compare preparedness levels pre/post session.'
-    }
-  ];
 
   const galleryImages = [
     { alt: 'Heat indicator and visual impairment when moving close to fires', src: HVLFire },
@@ -63,7 +52,18 @@
     { alt: 'One of two stairwells', src: stairs },
     { alt: 'End scene upon successfull evacuation. PLayers can view advanced stats, restart, go to lobby and save stats to JSON', src: endscreen },
     { alt: 'Detailed stats for evacuation', src: endstats },
+    { alt: 'Lounge area in 3rd floor', src: sofaområde },
   ];
+
+  let fullscreenImage: string | null = $state(null);
+
+ function openFullscreen(src: string) {
+    fullscreenImage = src;
+}
+
+ function closeFullscreen() {
+    fullscreenImage = null;
+}
 </script>
 
 <main class="min-h-screen bg-[#f5f5f7] text-gray-900">
@@ -82,7 +82,6 @@
         </div>
 
         <div class="flex flex-wrap gap-4">
-          <a href="https://example.com/hvlfire" target="_blank" class="cta cta-primary">Launch demo</a>
           <a href={withBase('/Projects/ProjectView')} class="cta cta-secondary">Back to projects</a>
         </div>
 
@@ -106,7 +105,14 @@
         <div class="absolute -inset-6 rounded-[32px] bg-white/10 blur-3xl" aria-hidden="true"></div>
         <div class="relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-b from-gray-800 to-gray-900 shadow-[0_30px_80px_rgba(0,0,0,0.55)]">
           <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,#ffffff22,transparent_55%)]" aria-hidden="true"></div>
-          <img src={HVLFire} alt="Screenshot from the VR Fire Escape Game" class="w-full object-cover" />
+          <!-- svelte-ignore a11y_click_events_have_key_events -->
+          <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+          <figure
+            class="relative z-10 rounded-3xl bg-gray-50 cursor-pointer hover:shadow-lg transition-shadow"
+            onclick={() => openFullscreen(HVLFire)}
+          >
+            <img src={HVLFire} alt="Screenshot from the VR Fire Escape Game" class="w-full object-cover" />
+          </figure>
         </div>
       </div>
     </div>
@@ -114,7 +120,7 @@
 
   <section class="max-w-5xl mx-auto -mt-16 px-6">
     <div class="rounded-[32px] bg-white p-8 shadow-[0_35px_90px_rgba(15,23,42,0.14)]">
-      <h2 class="text-2xl font-semibold">Mission</h2>
+      <h2 class="text-2xl font-semibold">Aim of the MSc project</h2>
       <p class="mt-4 text-gray-600">{project.contribution}</p>
       <div class="mt-6 grid gap-6 md:grid-cols-3">
         {#each highlights as highlight}
@@ -129,58 +135,31 @@
 
   <section class="max-w-5xl mx-auto px-6 py-16 space-y-12">
     <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-      <article class="rounded-3xl bg-white p-8 shadow-[0_20px_60px_rgba(15,23,42,0.12)]">
-        <h3 class="text-xl font-semibold text-gray-900">Experience goals</h3>
-        <ul class="mt-4 space-y-4 text-gray-600">
-          <li>- Guide players through escalating fires while reinforcing correct evacuation flows.</li>
-          <li>- Deliver feedback in real time using haptics, narration and ambient lighting.</li>
-          <li>- Capture analytics to show how long each step took and where confusion happens.</li>
-        </ul>
-      </article>
+   
 
-      <article class="rounded-3xl border border-gray-200 bg-white p-8">
-        <h3 class="text-xl font-semibold text-gray-900">Systems we built</h3>
-        <p class="mt-4 text-gray-600">
-          A parametric fire spread system creates different escape routes per run. It tracks oxygen levels, spawns smoke,
-          and triggers micro-events such as blocked doors or electric sparks, so returning trainees never see the exact
-          same scenario.
-        </p>
-      </article>
+     
     </div>
 
     <article class="rounded-3xl border border-dashed border-gray-300 bg-white/70 p-8">
       <h3 class="text-xl font-semibold text-gray-900">B-Prepared collaboration</h3>
       <p class="mt-4 text-gray-600">
         The B-Prepared initiative (<a href="https://b-prepared-project.com/" target="_blank" class="text-blue-500 underline">b-prepared-project.com</a>)
-        pairs students with emergency planners across Europe. Working alongside one other MSc student, we translated their open data and
-        citizen-readiness findings into a playful, accessible trainer that anyone can pick up in a living room headset or museum kiosk.
+        aims to improve the emergency preparedness of the general public with the help of technology through four main channels. RU-prepared, VR-prepared, IM-prepared and Disastropedia. Our contribution is in the VR-prepared category.
       </p>
-      <p class="mt-4 text-gray-600">
-        The drills emphasise household-scale actions: checking exits, communicating with family members, and making split-second decisions about
-        when to fight versus when to evacuate. Analytics from the build help the research team adjust public campaigns and measure preparedness gaps over time.
-      </p>
+
     </article>
 
     <div class="grid gap-6 md:grid-cols-3">
       {#each galleryImages as image}
-        <figure class="rounded-3xl overflow-hidden border border-gray-200 bg-gray-50 shadow-sm">
+        <figure class="rounded-3xl overflow-hidden border border-gray-200 bg-gray-50 shadow-sm cursor-pointer hover:shadow-lg transition-shadow"
+        onclick={() => openFullscreen(image.src)}>
           <img src={image.src} alt={image.alt} class="h-56 w-full object-cover" />
           <figcaption class="px-4 py-3 text-sm text-gray-500">{image.alt}</figcaption>
         </figure>
       {/each}
     </div>
 
-    <div>
-      <h3 class="text-xl font-semibold text-gray-900">Process & learnings</h3>
-      <div class="mt-6 grid gap-6 md:grid-cols-3">
-        {#each process as step}
-          <div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-            <p class="text-sm uppercase tracking-[0.3em] text-gray-400">{step.title}</p>
-            <p class="mt-3 text-gray-600">{step.body}</p>
-          </div>
-        {/each}
-      </div>
-    </div>
+    
   </section>
 
   <section class="max-w-5xl mx-auto px-6 pb-16">
@@ -193,8 +172,25 @@
         </p>
       </div>
       <div class="flex flex-col gap-3 md:items-end">
-        <a href={withBase('/Projects/projectView')} class="cta cta-ghost !text-white border-white/40">Browse more projects</a>
+        <a href={withBase('/Projects/ProjectView')} class="cta cta-ghost !text-white border-white/40">Browse more projects</a>
       </div>
     </div>
   </section>
+
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+{#if fullscreenImage}
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onclick={closeFullscreen}>
+      <div class="relative max-w-4xl w-full" onclick={(e) => e.stopPropagation()}>
+        <img src={fullscreenImage} alt="Fullscreen" class="w-full rounded-lg" />
+        <!-- svelte-ignore a11y_consider_explicit_label -->
+        <button onclick={closeFullscreen} class="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-gray-200 transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  {/if}
 </main>

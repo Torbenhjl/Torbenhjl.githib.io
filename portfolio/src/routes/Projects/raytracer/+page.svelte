@@ -1,18 +1,21 @@
 <script lang="ts">
   import raytracerShot from '$lib/images/raystracer.png';
+  import rt1 from '$lib/images/rt2.png';
+  import rt2 from '$lib/images/rt3.png';
+  import rtcontrols from '$lib/images/rtcontrols.png';
   import { withBase } from '$lib/utils/paths';
 
   const project = {
     title: 'GPU Ray Tracer',
     tagline: 'Porting "Ray Tracing in One Weekend" to a realtime HLSL compute shader.',
     summary:
-      "I translated Peter Shirley's CPU implementation into an HLSL compute shader that runs inside Unity. The build focuses on the fundamentals: sampling BRDFs, bouncing rays, denoising, and exposing everything through lightweight editor tooling.",
+      "I translated Peter Shirley's CPU implementation into an HLSL compute shader that runs inside Unity. The project focuses on the core building blocks of ray tracing: BRDF sampling, ray bounces, basic denoising, and experimenting with different material types like diffuse, metallic, and dielectric surfaces.",
     stack: ['Unity', 'HLSL', 'Compute Shaders', 'C#'],
-    duration: '3 weeks of evenings',
+    duration: '2 weeks',
     role: 'Graphics programmer',
     team: 'Solo project',
     contribution:
-      'Recreated the complete renderer on the GPU, built buffer packing utilities in C#, and exposed live controls for bounces, samples per pixel, and depth of field to study how each lever affects convergence.'
+      'Made 10 different shaders, each corresponding to a chapter in the book. Starting with a simple gradient shader and finnishing with a functional raytracer with movable camera'
   };
 
   const highlights = [
@@ -21,38 +24,31 @@
       text: 'Internalize the math and data flow behind ray tracing by rewriting it from scratch instead of relying on Unity lighting presets.'
     },
     {
-      label: 'Porting win',
-      text: 'Converted the recursive C++ scenes into iterative GPU-friendly kernels, replacing pointers with packed float4 buffers and struct-of-arrays layouts.'
+      label: 'Challenges',
+      text: 'One challenge was that HLSL doesn’t have a built-in random function, so I had to implement my own. Along the way I learned how pseudo-randomness actually works on the GPU'
     },
     {
       label: 'Result',
-      text: '1080p frames with metals, dielectrics, motion blur, and depth of field converge in ~2 seconds at 128 spp on an RTX 3060 laptop GPU.'
+      text: 'Completed making the final raytracer of the book including different materials, random function, movable camera and anti-aliasing'
     }
   ];
 
-  const process = [
-    {
-      title: 'C++ to HLSL',
-      body: 'Rebuilt sphere, material, and camera structs as raw buffers, rewired the RNG, and emulated recursion with a manual stack inside the compute shader.'
-    },
-    {
-      title: 'Material studies',
-      body: 'Implemented lambertian, metal, dielectric, and emissive BRDFs plus helper visualizations for normals, ray depth, and albedo to debug sampling.'
-    },
-    {
-      title: 'Unity integration',
-      body: 'C# scripts stream scene data to the GPU, accumulate frames over time, and provide pause/save buttons for exporting stills without blocking the editor.'
-    }
-  ];
 
   const galleryImages = [
-    { alt: 'First converged diffuse render from the compute shader', src: raytracerShot },
-    { alt: 'Metals, dielectrics, and emissive spheres with depth of field', src: raytracerShot },
-    { alt: 'Debug view showing surface normals and focus plane', src: raytracerShot }
+    { alt: 'Final shader and a C# script for controls with WASD CTRL and SPACE', src: rtcontrols },
+    { alt: 'Chapter six: surface normals and multiple spheres', src: rt1 },
+    { alt: 'Chapter seven: diffuse materials', src: rt2 }
   ];
 
+  let fullscreenImage: string | null = $state(null);
 
-  const fullHref = (link: (typeof links)[number]) => `${base}${link.href}`;
+  function openFullscreen(src: string) {
+    fullscreenImage = src;
+  }
+
+  function closeFullscreen() {
+    fullscreenImage = null;
+  }
 </script>
 
 <main class="min-h-screen bg-[#edf2ff] text-slate-900">
@@ -102,7 +98,14 @@
         <div class="absolute -inset-6 rounded-[32px] bg-white/10 blur-3xl" aria-hidden="true"></div>
         <div class="relative overflow-hidden rounded-[32px] border border-white/15 bg-gradient-to-b from-slate-800 to-slate-900 shadow-[0_30px_80px_rgba(15,23,42,0.55)]">
           <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,#ffffff22,transparent_60%)]" aria-hidden="true"></div>
-          <img src={raytracerShot} alt="Ray traced spheres rendered in HLSL" class="w-full object-cover" />
+          <!-- svelte-ignore a11y_click_events_have_key_events -->
+          <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+          <figure
+            class="relative z-10 rounded-3xl bg-gray-50 cursor-pointer hover:shadow-lg transition-shadow"
+            onclick={() => openFullscreen(raytracerShot)}
+          >
+            <img src={raytracerShot} alt="Ray traced spheres rendered in HLSL" class="w-full object-cover" />
+          </figure>
         </div>
       </div>
     </div>
@@ -110,7 +113,7 @@
 
   <section class="max-w-5xl mx-auto -mt-16 px-6">
     <div class="rounded-[32px] bg-white p-8 shadow-[0_35px_90px_rgba(79,70,229,0.25)]">
-      <h2 class="text-2xl font-semibold">Mission</h2>
+      <h2 class="text-2xl font-semibold">Summary</h2>
       <p class="mt-4 text-gray-600">{project.contribution}</p>
       <div class="mt-6 grid gap-6 md:grid-cols-3">
         {#each highlights as highlight}
@@ -124,45 +127,22 @@
   </section>
 
   <section class="max-w-5xl mx-auto px-6 py-16 space-y-12">
-    <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-      <article class="rounded-3xl bg-white p-8 shadow-[0_20px_60px_rgba(79,70,229,0.2)]">
-        <h3 class="text-xl font-semibold text-gray-900">Experience beats</h3>
-        <ul class="mt-4 space-y-4 text-gray-600">
-          <li>- Progressive accumulation slider to study noise vs. performance.</li>
-          <li>- Camera controls for aperture, focus distance, and shutter time to test DOF + motion blur.</li>
-          <li>- Debug overlays that display normals, ray depth, or albedo to quickly find sampling bugs.</li>
-        </ul>
-      </article>
+ 
 
-      <article class="rounded-3xl border border-gray-200 bg-white p-8">
-        <h3 class="text-xl font-semibold text-gray-900">Compute shader pipeline</h3>
-        <p class="mt-4 text-gray-600">
-          Rays are launched in tiles to keep thread groups coherent. Each bounce samples the material, updates energy, and decides whether to terminate via
-          Russian roulette. The C# side streams scene buffers (spheres, materials, camera) every edit while async GPU readback saves converged frames.
-        </p>
-      </article>
-    </div>
-
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
     <div class="grid gap-6 md:grid-cols-3">
       {#each galleryImages as image}
-        <figure class="rounded-3xl overflow-hidden border border-gray-200 bg-gray-50 shadow-sm">
+        <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+        <figure
+          class="rounded-3xl overflow-hidden border border-gray-200 bg-gray-50 shadow-sm cursor-pointer hover:shadow-lg transition-shadow"
+          onclick={() => openFullscreen(image.src)}
+        >
           <img src={image.src} alt={image.alt} class="h-56 w-full object-cover" />
           <figcaption class="px-4 py-3 text-sm text-gray-500">{image.alt}</figcaption>
         </figure>
       {/each}
     </div>
 
-    <div>
-      <h3 class="text-xl font-semibold text-gray-900">Process & learnings</h3>
-      <div class="mt-6 grid gap-6 md:grid-cols-3">
-        {#each process as step}
-          <div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-            <p class="text-sm uppercase tracking-[0.3em] text-indigo-400">{step.title}</p>
-            <p class="mt-3 text-gray-600">{step.body}</p>
-          </div>
-        {/each}
-      </div>
-    </div>
   </section>
 
   <section class="max-w-5xl mx-auto px-6 pb-16">
@@ -171,13 +151,31 @@
         <p class="text-sm uppercase tracking-[0.4em] text-gray-400">Next</p>
         <h2 class="text-3xl font-semibold">Continuing the series</h2>
         <p class="mt-3 text-gray-300">
-          I am currently diving into the sequels from the Ray Tracing in One Weekend series (BVHs, textures, quads). If you are exploring similar graphics experiments, let's chat.
+          I would like to dive into the sequels from the Ray Tracing in One Weekend series (BVHs, textures, quads).
         </p>
       </div>
       <div class="flex flex-col gap-3 md:items-end">
-        <a href={withBase('/contact')} class="cta cta-primary">Start a graphics convo</a>
-        <a href={withBase('/Projects/projectView')} class="cta cta-ghost text-white border-white/40">Browse more projects</a>
+        <a href={withBase('/Projects/ProjectView')} class="cta cta-ghost text-white border-white/40">Browse more projects</a>
       </div>
     </div>
   </section>
+
+  {#if fullscreenImage}
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onclick={closeFullscreen}>
+      <div class="relative max-w-4xl w-full" onclick={(e) => e.stopPropagation()}>
+        <img src={fullscreenImage} alt="Fullscreen" class="w-full rounded-lg" />
+        <!-- svelte-ignore a11y_consider_explicit_label -->
+        <button
+          onclick={closeFullscreen}
+          class="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-gray-200 transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  {/if}
 </main>

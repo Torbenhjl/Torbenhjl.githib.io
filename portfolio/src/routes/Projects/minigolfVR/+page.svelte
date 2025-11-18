@@ -1,15 +1,17 @@
 <script lang="ts">
   import minigolf from '$lib/images/MinigolfVR.png';
+  import water from '$lib/images/watershader.png';
+  import scorecard from '$lib/images/scorecard.png';
   import { withBase } from '$lib/utils/paths';
 
   const project = {
     title: 'Minigolf VR',
-    tagline: 'Playful physics playground with custom tracks and multiplayer ghost races.',
+    tagline: 'Relaxing VR minigolf experience in nature',
     summary:
-      'A Unity VR prototype that blends calm environments with trickshot challenges. Built to explore tactile interactions, haptics, and networked scoreboards.',
+      'A Unity VR prototype that blends calm environments with with fun challenges that could not exist in real life such as a black hole and volcano.',
     stack: ['Unity', 'C#' ],
-    duration: '10 weeks',
-    role: 'Gameplay programmer',
+    duration: 'Around 4 weeks',
+    role: 'Solo developer',
     team: 'Solo project',
     contribution:
       '9 hole VR minigolf game in a cozy mountain valley'
@@ -18,38 +20,29 @@
   const highlights = [
     {
       label: 'Goal',
-      text: 'Make VR feel cozy—inviting enough for casual players yet deep for speedrunners chasing trickshots.'
+      text: 'Make a relaxing VR minigolf experience with challenging holes. '
     },
     {
-      label: 'Experiment',
-      text: 'Used custom shaders for day/night moods and reactive foliage that wobbles when the ball passes.'
-    },
-    {
-      label: 'Results',
-      text: 'Friends kept replaying holes to beat ghost times, validating the asynchronous multiplayer concept.'
+      label: 'Features',
+      text: '9 hole VR game with working scorecard and pshyics based putter in a cozy valley with relaxing music.'
     }
   ];
 
-  const process = [
-    {
-      title: 'Feel first',
-      body: 'Started with putter physics, haptic pulses, and spatial audio before worrying about art polish.'
-    },
-    {
-      title: 'World building',
-      body: 'Kitbashed stylized assets, added animated waterfalls, and sculpted terrain splines for smooth curves.'
-    },
-    {
-      title: 'Playtests',
-      body: 'Hosted remote playtests, captured telemetry for shot counts, and iterated on par balancing.'
-    }
-  ];
 
   const galleryImages = [
-    { alt: 'Luminous canyon course placeholder', src: minigolf },
-    { alt: 'Night mode course placeholder', src: minigolf },
-    { alt: 'Ghost race HUD placeholder', src: minigolf }
+    { alt: 'Overview of the course', src: minigolf },
+    { alt: 'Scorecard and volcano hole', src: scorecard },
+    { alt: 'Water level, the water shader needs improving', src: water }
   ];
+
+  let fullscreenImage: string | null = $state(null);
+
+  function openFullscreen(src: string) {
+    fullscreenImage = src;
+  }
+  function closeFullscreen() {
+    fullscreenImage = null;
+  }
 </script>
 
 <main class="min-h-screen bg-[#edf2ff] text-slate-900">
@@ -67,7 +60,6 @@
         </div>
 
         <div class="flex flex-wrap gap-4">
-          <a href="https://example.com/minigolf" target="_blank" class="cta cta-primary">Watch demo</a>
           <a href={withBase('/Projects/ProjectView')} class="cta cta-secondary">Back to projects</a>
         </div>
 
@@ -91,15 +83,19 @@
         <div class="absolute -inset-6 rounded-[32px] bg-white/10 blur-3xl" aria-hidden="true"></div>
         <div class="relative overflow-hidden rounded-[32px] border border-white/15 bg-gradient-to-b from-slate-800 to-slate-900 shadow-[0_30px_80px_rgba(15,23,42,0.55)]">
           <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,#ffffff22,transparent_60%)]" aria-hidden="true"></div>
-          <img src={minigolf} alt="Minigolf VR environment" class="w-full object-cover" />
-        </div>
+          <!-- svelte-ignore a11y_click_events_have_key_events -->
+          <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+          <figure class="relative z-10 rounded-3xl bg-gray-50 cursor-pointer hover:shadow-lg transition-shadow" onclick={() => openFullscreen(minigolf)} >
+          <img src={minigolf} alt="Minigolf VR environment" class="w-full object-cover"/>
+        </figure>
+      </div>
       </div>
     </div>
   </section>
 
   <section class="max-w-5xl mx-auto -mt-16 px-6">
     <div class="rounded-[32px] bg-white p-8 shadow-[0_35px_90px_rgba(79,70,229,0.25)]">
-      <h2 class="text-2xl font-semibold">Mission</h2>
+      <h2 class="text-2xl font-semibold">Summary</h2>
       <p class="mt-4 text-gray-600">{project.contribution}</p>
       <div class="mt-6 grid gap-6 md:grid-cols-3">
         {#each highlights as highlight}
@@ -113,60 +109,48 @@
   </section>
 
   <section class="max-w-5xl mx-auto px-6 py-16 space-y-12">
-    <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-      <article class="rounded-3xl bg-white p-8 shadow-[0_20px_60px_rgba(79,70,229,0.2)]">
-        <h3 class="text-xl font-semibold text-gray-900">Experience beats</h3>
-        <ul class="mt-4 space-y-4 text-gray-600">
-          <li>- Reading the slope via controller haptics before you swing.</li>
-          <li>- Unlocking “zen gardens” after streaks of par or better.</li>
-          <li>- Challenging ghost recordings from friends to learn new trick lines.</li>
-        </ul>
-      </article>
 
-      <article class="rounded-3xl border border-gray-200 bg-white p-8">
-        <h3 class="text-xl font-semibold text-gray-900">Ghost race netcode</h3>
-        <p class="mt-4 text-gray-600">
-          Photon records position + club velocity each stroke, compresses it, and replays it as a translucent ghost.
-          Players feel competitive pressure without requiring synchronous multiplayer.
-        </p>
-      </article>
-    </div>
-
+   <!-- svelte-ignore a11y_click_events_have_key_events -->
     <div class="grid gap-6 md:grid-cols-3">
       {#each galleryImages as image}
-        <figure class="rounded-3xl overflow-hidden border border-gray-200 bg-gray-50 shadow-sm">
+        <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+        <figure class="rounded-3xl overflow-hidden border border-gray-200 bg-gray-50 shadow-sm cursor-pointer hover:shadow-lg transition-shadow" onclick={() => openFullscreen(image.src)}>
           <img src={image.src} alt={image.alt} class="h-56 w-full object-cover" />
           <figcaption class="px-4 py-3 text-sm text-gray-500">{image.alt}</figcaption>
         </figure>
       {/each}
     </div>
-
-    <div>
-      <h3 class="text-xl font-semibold text-gray-900">Process & learnings</h3>
-      <div class="mt-6 grid gap-6 md:grid-cols-3">
-        {#each process as step}
-          <div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-            <p class="text-sm uppercase tracking-[0.3em] text-indigo-400">{step.title}</p>
-            <p class="mt-3 text-gray-600">{step.body}</p>
-          </div>
-        {/each}
-      </div>
-    </div>
+ 
   </section>
 
   <section class="max-w-5xl mx-auto px-6 pb-16">
     <div class="rounded-[32px] bg-slate-900 text-white p-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
       <div>
         <p class="text-sm uppercase tracking-[0.4em] text-gray-400">Next</p>
-        <h2 class="text-3xl font-semibold">Open to collabs</h2>
+        <h2 class="text-3xl font-semibold">Back 9?</h2>
         <p class="mt-3 text-gray-300">
-          Looking at seasonal events, course builder tools, and Steam demo prep. Reach out if you want to send golfers through your world.
+         Would be fun to make the back 9, also improve the ball/putter physics as it is frustratingly hard and sometimes innacurate.
         </p>
       </div>
       <div class="flex flex-col gap-3 md:items-end">
-        <a href="mailto:torben@example.com" class="cta cta-primary">Chat about VR</a>
-        <a href={withBase('/Projects/projectView')} class="cta cta-ghost text-white border-white/40">Browse more projects</a>
+        <a href={withBase('/Projects/ProjectView')} class="cta cta-ghost text-white border-white/40">Browse more projects</a>
       </div>
     </div>
   </section>
+
+  {#if fullscreenImage}
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onclick={closeFullscreen}>
+      <div class="relative max-w-4xl w-full" onclick={(e) => e.stopPropagation()}>
+        <img src={fullscreenImage} alt="Fullscreen" class="w-full rounded-lg" />
+        <!-- svelte-ignore a11y_consider_explicit_label -->
+        <button onclick={closeFullscreen} class="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-gray-200 transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  {/if}
 </main>

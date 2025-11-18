@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "@smui/button": "^8.0.3",
+    "@smui/snackbar": "^8.0.3"
+  }
+}
