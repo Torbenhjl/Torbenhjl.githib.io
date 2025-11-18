@@ -27,7 +27,7 @@
     {
       title: 'GitHub',
       value: 'github.com/Torbenhjl',
-      description: 'My personal project except the unity games',
+      description: 'My personal projects except the unity games',
       href: 'https://github.com/Torbenhjl',
       actionLabel: 'View my work'
     }

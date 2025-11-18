@@ -127,7 +127,7 @@
         </p>
       </div>
       <div class="flex flex-col gap-3 md:items-end">
-        <a href={withBase('/Projects/ProjectView')} class="cta cta-ghost text-white border-white/40">Browse more projects</a>
+        <a href={withBase('/Projects/ProjectView')} class="cta cta-ghost !text-white border-white/40">Browse more projects</a>
       </div>
     </div>
   </section>
