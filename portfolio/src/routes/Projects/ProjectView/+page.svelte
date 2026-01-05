@@ -7,6 +7,7 @@
   import { withBase } from '$lib/utils/paths';
   import Snackbar, { Actions, Label } from '@smui/snackbar';
   import IconButton from '@smui/icon-button';
+  import sun from '$lib/images/sun.png'
 
   let snackbarWithClose: Snackbar;
 
@@ -44,6 +45,13 @@
     image={raytracer}
     link={withBase('/Projects/raytracer')}
     github="https://github.com/Torbenhjl/lecture9UnityCodeStartRaytracer"
+  />
+
+  <Card
+    title="Solar System"
+    image={sun}
+    link={withBase('/Projects/Solarsystem')}
+    github="https://github.com/Torbenhjl/VR-Solar-System"
   />
 </div>
 

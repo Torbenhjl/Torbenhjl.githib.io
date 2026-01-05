@@ -7,10 +7,20 @@
   import MealPlanner from '$lib/images/mealplanner.png';
   import portrait from '$lib/images/profile.jpg';
   import FAM from '$lib/images/theFam.jpg';
+  import arsenal from '$lib/images/arsenal.jpg';
+  import golf1 from '$lib/images/golf1.jpg';
+  import golf2 from '$lib/images/golf2.jpg';
+  import hackathon from '$lib/images/hackathon.jpg';
+  import golf3 from '$lib/images/golf3.jpg';
+  import maraton from '$lib/images/maraton.jpg';
+  import pizza from '$lib/images/pizza_hytten.jpg';
+  import sun from '$lib/images/sun.png';
   import CV from '$lib/assets/CV.pdf';
   import { withBase } from '$lib/utils/paths';
   import Snackbar, { Actions, Label } from '@smui/snackbar';
   import IconButton from '@smui/icon-button';
+  
+  
 
 let snackbarWithClose!: Snackbar;
 
@@ -18,10 +28,24 @@ const noGithubSnackbar = () => {
   snackbarWithClose.open();
 }
 
-  let status: 'OPEN' | 'CLOSED' = $state('OPEN');
+const imageList: string[] = [portrait,pizza, golf1, golf2, golf3, maraton, arsenal, hackathon];
+
+let currentImgIdx = $state(0);
+const currentImg = $derived(imageList[currentImgIdx]);
+
+  let status = $state<'OPEN' | 'CLOSED'>('OPEN');
 
   function toggle() {
     status = status === 'OPEN' ? 'CLOSED' : 'OPEN';
+
+    if(status == 'CLOSED' && imageList.length > 1) {
+      let newIdx = currentImgIdx;
+
+      while(newIdx === currentImgIdx) {
+        newIdx = Math.floor(Math.random() * imageList.length);
+      }
+      currentImgIdx = newIdx;
+    }
   }
 
 </script>
@@ -92,7 +116,7 @@ const noGithubSnackbar = () => {
         <div class="absolute inset-0 rounded-full bg-gradient-to-b from-gray-100 to-gray-200 blur-3xl" aria-hidden="true"></div>
         <div class="relative h-72 w-72 md:h-100 md:w-100">
           <img
-            src={portrait}
+            src={FAM}
             alt="Portrait of Torben Pettersen"
             class="h-full w-full rounded-full border-[10px] border-white object-cover shadow-[0_25px_70px_rgba(15,23,42,0.15)]"
           />
@@ -143,13 +167,19 @@ const noGithubSnackbar = () => {
   link={withBase('/Projects/raytracer')}
   github="https://github.com/Torbenhjl/lecture9UnityCodeStartRaytracer"
 />
+<Card
+  title="VR Solarsystem"
+  image={sun}
+  link={withBase('/Projects/Solarsystem')}
+  github="https://github.com/Torbenhjl/VR-Solar-System"
+/>
 
         </div>
       {:else}
         <div class="mt-12 rounded-3xl bg-white p-8 text-center shadow-[0_10px_50px_rgba(15,23,42,0.08)]">
-          <h3 class="text-2xl font-semibold text-gray-900">My beautiful family</h3>
+          <h3 class="text-2xl font-semibold text-gray-900">Hobbies and stuff</h3>
          
-          <img src={FAM} alt="Torben with family" class="mt-8 w-full max-w-xl mx-auto rounded-2xl shadow-md" />
+          <img src={currentImg} alt="Torben with family" class="mt-8 w-full max-w-xl mx-auto rounded-2xl shadow-md" />
         </div>
       {/if}
     </div>

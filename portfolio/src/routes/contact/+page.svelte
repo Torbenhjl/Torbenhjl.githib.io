@@ -36,11 +36,11 @@
   const availability = [
     {
       label: 'Current focus',
-      value: 'Writing master thesis and developing fire escape game'
+      value: 'Writing master thesis and developing VR fire escape game'
     },
     {
       label: 'Open to',
-      value: 'JOB PLS'
+      value: 'Full time job after MSC degree (June 2026).'
     },
     {
       label: 'Response time',
@@ -136,7 +136,7 @@
               <input
                 class="rounded-2xl border border-gray-200 px-4 py-3 text-base text-gray-900 outline-none transition focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.15)]"
                 type="text"
-                placeholder="John Doe"
+              
                 bind:value={name}
                 required
               />
@@ -146,7 +146,7 @@
               <input
                 class="rounded-2xl border border-gray-200 px-4 py-3 text-base text-gray-900 outline-none transition focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.15)]"
                 type="email"
-                placeholder="you@example.com"
+                
                 bind:value={replyTo}
                 required
               />
@@ -157,7 +157,7 @@
             <input
               class="rounded-2xl border border-gray-200 px-4 py-3 text-base text-gray-900 outline-none transition focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.15)]"
               type="text"
-              placeholder="Project idea, opportunity, etc."
+             
               bind:value={subject}
             />
           </label>
@@ -165,7 +165,7 @@
             Message
             <textarea
               class="min-h-[180px] rounded-2xl border border-gray-200 px-4 py-3 text-base text-gray-900 outline-none transition focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.15)]"
-              placeholder="Whats good in the hood"
+              
               bind:value={message}
               required
             ></textarea>
