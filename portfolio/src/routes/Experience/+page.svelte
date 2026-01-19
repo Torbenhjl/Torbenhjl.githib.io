@@ -1,5 +1,6 @@
 <script lang="ts">
-  // Simple data-driven experience page
+  import { text } from "@sveltejs/kit";
+
   const skills = [
     {
       category: "Frontend",
@@ -50,7 +51,7 @@
     {
       role: "Student Assistant",
       company: "HVL",
-      period: "Januar 2026 - June 2026",
+      period: "January 2026 - June 2026",
       details: [
         "Student assistant in the course DAT253 Advanced computer graphics.",
         "Work includes guiding student with subjects such as raytracing, CT scnanning, Mesh data, 3D printing and shaders with hlsl, as well as helping students with and grading assignments.",
@@ -71,6 +72,29 @@
     },
   ];
 
+  const education = [
+    {
+      title: "Software Development",
+      grade: "Master",
+      period: "August 2024 - June 2026",
+      description: [
+        "Joint degree with UIB and HVL.",
+        "Masters degree in Software Development with first year dedicated to courses about modern Software technologies, software development methodologies, algorithms and programming languages",
+        "Final year dedicated to the masters project about VR fire escape serious game",
+      ],
+      projectLink: { href: "/Projects/HVLFire", text: "View project" },
+    },
+    {
+      title: "Computer Engineering",
+      grade: "Bachelor",
+      period: "August 2021 - June 2024",
+      description: [
+        "Bachelors degree in computer Engineering at HVL, covering a wide range of topics.",
+        "These include algorithms, programming java, descrete maths, web development, machine learning, development processes, physics, databases and more.",
+        "Final project was the VR fire escape game which is now the masters project.",
+      ],
+    },
+  ];
   // small helper to toggle visibility of experience details
   let expanded: Record<number, boolean> = {};
   const toggle = (i: number) => {
@@ -142,6 +166,54 @@
             >
               {#each exp.details as d}
                 <li>{d}</li>
+              {/each}
+            </ul>
+          {/if}
+        </li>
+      {/each}
+    </ol>
+  </section>
+
+  <section class="mt-8" aria-labelledby="experience-heading">
+    <h2 id="experience-heading" class="text-lg font-medium text-slate-900 mb-3">
+      Education
+    </h2>
+    <ol class="list-none m-0 p-0 space-y-3">
+      {#each education as ed, i}
+        <li class="bg-white rounded-lg p-4 shadow-sm">
+          <div
+            class="flex flex-col md:flex-row md:justify-between md:items-center gap-3"
+          >
+            <div>
+              <strong class="block text-base text-slate-900">{ed.title}</strong>
+              <div class="text-sm text-slate-600">{ed.grade}</div>
+            </div>
+            <div class="flex flex-col items-start md:items-end gap-1">
+              <time class="text-sm text-slate-500">{ed.period}</time>
+              <button
+                class="text-sm px-2 py-1 border border-slate-200 rounded-md hover:bg-slate-50"
+                on:click={() => toggle(i)}
+                aria-expanded={!!expanded[i]}
+                aria-controls={"details-" + i}
+              >
+                {expanded[i] ? "Hide" : "Details"}
+              </button>
+            </div>
+          </div>
+
+          {#if expanded[i]}
+            <ul
+              id={"details-" + i}
+              class="mt-3 pl-5 text-slate-600 list-disc space-y-1"
+            >
+              {#each ed.description as d, j}
+                <li>{d}</li>
+                {#if ed.projectLink && j == 1}
+                  {" "}
+                  <a class="inline-link" href={ed.projectLink.href}
+                    >See project for details</a
+                  >
+                {/if}
               {/each}
             </ul>
           {/if}
